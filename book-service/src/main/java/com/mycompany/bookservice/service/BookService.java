@@ -11,7 +11,8 @@ public interface BookService {
     public void deleteBook(Long bookId);
     public BookDTO updateBookPrice(BookDTO bookDTO, Long bookId);
     public List<BookDTO> getAllBook();
-    public BookDTO getBook(Long bookId);
+   // public BookDTO getBook(Long bookId);
     public BookDTO updateBookQty(BookDTO bookDTO,Long bookId);
 
+    BookDTO getBook(Long bookId);
 }

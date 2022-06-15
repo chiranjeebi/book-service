@@ -1,6 +1,7 @@
 package com.mycompany.bookservice.controller;
 
 import com.mycompany.bookservice.dto.BookDTO;
+import com.mycompany.bookservice.entity.BookEntity;
 import com.mycompany.bookservice.repository.BookRepository;
 import com.mycompany.bookservice.service.BookService;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static  org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -98,6 +100,25 @@ Assertions.assertEquals(HttpStatus.OK.value(),responseEntity.getStatusCodeValue(
         assertEquals(99.05, responseEntity.getBody().getPricePerQty());
         assertEquals(HttpStatus.OK.value(), responseEntity.getStatusCodeValue());
     }
+    @Test
+    @DisplayName(" success Scenario get book")
+    void testGetBook() {
+        List<BookDTO> bookList = new ArrayList<>();
+        BookDTO dto = new BookDTO();
+        dto.setBookId(1L);
+
+        dto.setName("Dummy getallBook");
+        bookList.add(dto);
+
+        when(bookService.getAllBook()).thenReturn(bookList);
+        ResponseEntity<List<BookDTO>> responseEntity = bookController.getAllBook();
+        assertEquals(1, responseEntity.getBody().size());
+        assertEquals(HttpStatus.OK.value(), responseEntity.getStatusCodeValue());
+
+    }
+
+
+
 
 
 }
