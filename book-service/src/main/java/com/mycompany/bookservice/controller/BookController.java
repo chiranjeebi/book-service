@@ -27,7 +27,6 @@ public class BookController {
     public ResponseEntity<List<BookDTO>> getAllBook(){
         List<BookDTO> books = bookService.getAllBook();
         ResponseEntity<List<BookDTO>> responseEntity = new ResponseEntity<>(books, HttpStatus.OK);
-        //responseEntity = ResponseEntity.ok(books);
         return responseEntity;
     }
 

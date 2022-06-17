@@ -78,9 +78,16 @@ public class BookServiceImplTest {
         Assertions.assertEquals(1L, bookDTO.getBookId());
     }
 
-    @Test
-    void  testDeleteBook(){
+/*    @Test
+void testUpdateBookQty(){
+List<BookEntity> be= new ArrayList<>();
+BookDTO  dto=new BookDTO();
+dto.setName("war");
+dto.setBookId(9l);
 
-    }
+        Mockito.when(bookRepository.findAll()).thenReturn(be);
+        BookDTO bookDTO =bookService.updateBookQty(9l);
+        Assertions.assertEquals(9l,dto.getBookId());
+}*/
 
 }

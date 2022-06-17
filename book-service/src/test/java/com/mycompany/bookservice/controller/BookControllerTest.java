@@ -16,6 +16,7 @@ import static  org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -58,41 +59,25 @@ Assertions.assertNotNull(responseEntity.getBody().getBookId());
 @DisplayName("success scenario for get all book")
 void testGetAll(){
 List<BookDTO> bookDTOList=new ArrayList<>();
+
 BookDTO bookDTO=new BookDTO();
 bookDTO.setBookId(1L);
 bookDTO.setName("dummy");
-bookDTO.setAuthorName("dummy auhtor");
-bookDTO.setDescription("dummy book");
 bookDTOList.add(bookDTO);
-Mockito.when(bookService.getAllBook()).thenReturn(bookDTOList);
+
+   Mockito.when(bookService.getAllBook()).thenReturn(bookDTOList);
    ResponseEntity<List<BookDTO>> responseEntity =  bookController.getAllBook();
 Assertions.assertNotNull(responseEntity.getBody().size());
 Assertions.assertEquals(HttpStatus.OK.value(),responseEntity.getStatusCodeValue());
     }
 
-/*
-@Test
-@DisplayName("success scenario for get book")
-    void testGetBook(){
-        List<BookDTO> bookDTOList=new ArrayList<>();
-        BookDTO bookDTO=new BookDTO();
-        bookDTO.setName("dummy");
-        bookDTO.setAuthorEmail("dummy@gmail.com");
-        bookDTOList.add(bookDTO);
-        Mockito.when(bookService.getBook()).thenReturn();
-        ResponseEntity<List<BookDTO>> responseEntity=bookController.getBook();
-        Assertions.assertNotNull(responseEntity.getBody().size());
-        Assertions.assertEquals(HttpStatus.OK.value(),responseEntity.getStatusCodeValue());
 
-    }*/
     @Test
     @DisplayName("success scenario for update book price")
     void testUpdateBookPrice(){
 
-
        BookDTO dto = new BookDTO();
         dto.setPricePerQty(99.05);
-
 
         Mockito.when(bookService.updateBookPrice(Mockito.any(),Mockito.anyLong())).thenReturn(dto);
         ResponseEntity<BookDTO> responseEntity = bookController.updateBookPrice(dto,1L);
@@ -117,8 +102,43 @@ Assertions.assertEquals(HttpStatus.OK.value(),responseEntity.getStatusCodeValue(
 
     }
 
+    @Test
+    void testUpdateBook(){
 
+        BookDTO bookDTO=new BookDTO(); //create a obj insert to list then do call when mawthod calll then returns what it returns
+        bookDTO.setBookId(2L);
+        bookDTO.setName("dummy");
+        bookDTO.setPricePerQty(21.21);
+        bookDTO.setAuthorName("war");
+        bookDTO.setDescription("god of war");
+        List<BookDTO> bookDTOS=new ArrayList<>();
+        bookDTOS.add(bookDTO);
 
+        when(bookService.updateBook(bookDTO,2L)).thenReturn(bookDTO);
+        ResponseEntity<BookDTO> responseEntity  =bookController.updateBook(bookDTO,2l);
+        assertEquals(2,responseEntity.getBody().getBookId());
+        assertEquals(HttpStatus.OK.value(),responseEntity.getStatusCodeValue());
 
+    }
+    /*@Test
+void testDeleteBook(){
+
+    BookDTO bookDTO=new BookDTO();
+    bookDTO.setBookId(2l);
+    bookDTO.setName("dummy");
+
+    }*/
+    @Test
+void testGetOneBook(){
+        BookDTO dto=new BookDTO();
+        dto.setBookId(3l);
+        dto.setName("call of duty");
+        List<BookDTO> list=new ArrayList<>();
+        list.add(dto);
+    when(bookService.getBook(3l)).thenReturn(dto);
+       ResponseEntity<BookDTO> responseEntity= bookController.getBook(3l);
+        assertEquals(3l,responseEntity.getBody().getBookId());
+        
+    }
 
 }
