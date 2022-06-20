@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class BookController {
 
-    @Autowired//spring please make the object of bsimpl available to bs interface reference here in controller
+    @Autowired//spring please make the object of book service impl available to bs interface reference here in controller
     private BookService bookService;
 
     @PostMapping("/books")
